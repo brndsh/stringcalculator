@@ -6,19 +6,36 @@ public class Calculator {
 		if(text.equals("")){
 			return 0;
 		}
-		else if(text.contains(",") || (text.contains("\n"))){
+
+		/*if(text.contains("-"))
+		{
+			throw new RuntimeException("Negatives not allowed: ");		
+		}*/
+		else if(text.contains("//"))
+		{
+			return sum(splitNumbers(removeBeginning(text)));
+		}
+		else if(text.contains(",") || text.contains("\n") || text.contains(";")){
 			return sum(splitNumbers(text));
 		}
+
 		else
-			return 1;
+			return toInt(text);
 	}
 
+	private static String removeBeginning(String text){
+		
+		String storeText = text.substring(5);
+		text = storeText;
+		return text;
+	}
+	
 	private static int toInt(String number){
 		return Integer.parseInt(number);
 	}
 
 	private static String[] splitNumbers(String numbers){
-	    return numbers.split(",|\n");
+	    return numbers.split(",|\n|;");
 	}
         
     private static int sum(String[] numbers){
@@ -28,7 +45,4 @@ public class Calculator {
 		}
 		return total;
     }
-
-
-
 }

@@ -33,5 +33,20 @@ public class CalculatorTest {
     public void testNewLineBetweenNumbers(){
     	assertEquals(6, Calculator.add("1\n2,3"));
     }
+/*
+    @Test
+    public void testDelimeter(){
+    	assertEquals(0, Calculator.add(";"));
+    }
 
+    @Test
+    public void testDifferentDelimeter(){
+    	assertEquals(3, Calculator.add("//;\n1;2"));
+    }
+
+    @Test
+    public void testOneNegativeNumber(){
+    	assertEquals("Negatives not allowed: ", Calculator.add("-1"), exception.getMessage());
+    }
+    */
 }
