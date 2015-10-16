@@ -7,10 +7,10 @@ public class Calculator {
 			return 0;
 		}
 
-		/*if(text.contains("-"))
+		if(text.contains("-"))
 		{
 			throw new RuntimeException("Negatives not allowed: ");		
-		}*/
+		}
 		else if(text.contains("//"))
 		{
 			return sum(removeBeginning(text));
