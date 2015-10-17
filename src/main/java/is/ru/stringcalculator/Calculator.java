@@ -25,8 +25,7 @@ public class Calculator {
 		int checkIfNegative = 0;
 
 		for(String number : numbers){
-			if(number.contains ("-"))
-			{
+			if(number.contains ("-")){
 				checkIfNegative = 1;
 			}
 
@@ -61,7 +60,9 @@ public class Calculator {
     private static int sum(String[] numbers){
  	    int total = 0;
         for(String number : numbers){
-		    total += toInt(number);
+        	if(toInt(number) < 1000){
+        		total += toInt(number);
+        	}
 		}
 		return total;
     }
