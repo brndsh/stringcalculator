@@ -19,7 +19,24 @@ public class Calculator {
 		else
 			return toInt(text);
 	}
+/*
 
+	private static String checkMultipleDelimeters(String numbers){
+		int indexOfOpenBracket;
+		int indexOfClosedBracket;
+		String storeDelimeter;
+
+		for(int i = 0; i < numbers.split("[").length - 1; i++){
+			indexOfOpenBracket = numbers.indexOf("[");
+			indexOfClosedBracket = numbers.indexOf("]");
+			storeDelimeter = numbers.substring(indexOfOpenBracket, indexOfClosedBracket);
+			numbers = numbers.replace(storeDelimeter, ";");
+			numbers = numbers.substring(indexOfClosedBracket);
+		}
+
+		return numbers;
+	}
+*/
 	private static String checkDelimetersOfAnyLength(String numbers){
 		int delimeterEnds = numbers.indexOf("]");
 		String storeDelimeters = numbers.substring(3, delimeterEnds);
@@ -51,19 +68,36 @@ public class Calculator {
 	}
 
 	private static String[] removeBeginning(String numbers){
-		if (numbers.contains ("[") && numbers.contains("]")){
+		int countBrackets = numbers.split("]").length - 1;
+		
+		if(countBrackets > 1){
+			int indexOfOpenBracket;
+			int indexOfClosedBracket;
+			String storeDelimeter;
+
+			for(int i = 0; i < countBrackets; i++){
+				indexOfOpenBracket = numbers.indexOf("[");
+				indexOfClosedBracket = numbers.indexOf("]");
+				//System.out.println("\nOpen: " + indexOfOpenBracket + "\nClose: " + indexOfClosedBracket + "\n");
+				storeDelimeter = numbers.substring(indexOfOpenBracket + 1, indexOfClosedBracket);
+				//System.out.println("\nBleep: " + storeDelimeter);
+				numbers = numbers.replace(storeDelimeter, ";");
+				numbers = numbers.substring(indexOfClosedBracket + 1);
+				//System.out.println("\nNumbers: " + numbers + "\n");
+			}
+		}
+
+		else if (numbers.contains ("[") && numbers.contains("]")){
 			numbers = checkDelimetersOfAnyLength(numbers);
 		}
 		
-		else
-		{
+		else{
 			String storeDelim = numbers.substring(2,3);		//Store the delimeter
 			numbers = numbers.replaceAll(storeDelim, ";");	//Replace every delimeter with ";"
 			numbers = numbers.substring(3);					//Removing first 3 letters
 		}
 		
 		numbers = numbers.replaceAll("\n", "");			//Replace newline with empty string
-		
 		return splitNumbers(numbers);
 	}
 
