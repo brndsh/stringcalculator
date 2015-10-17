@@ -20,6 +20,17 @@ public class Calculator {
 			return toInt(text);
 	}
 
+	private static String checkDelimetersOfAnyLength(String numbers){
+		int delimeterEnds = numbers.indexOf("]");
+		String storeDelimeters = numbers.substring(3, delimeterEnds);
+
+		numbers = numbers.replace(storeDelimeters, ";");
+		numbers = numbers.substring(delimeterEnds);
+		
+
+		return numbers;
+	}
+
 	private static int checkIfNumberIsNegative(String[] numbers){
 		String storeAllNegativeNumbers = "";
 		int checkIfNegative = 0;
@@ -36,15 +47,22 @@ public class Calculator {
 			}
 		}
 
-
 		throw new IllegalArgumentException("Negatives not allowed: " + storeAllNegativeNumbers);
 	}
 
 	private static String[] removeBeginning(String numbers){
-		String storeDelim = numbers.substring(2,3);		//Store the delimeter
+		if (numbers.contains ("[") && numbers.contains("]")){
+			numbers = checkDelimetersOfAnyLength(numbers);
+		}
+		
+		else
+		{
+			String storeDelim = numbers.substring(2,3);		//Store the delimeter
+			numbers = numbers.replaceAll(storeDelim, ";");	//Replace every delimeter with ";"
+			numbers = numbers.substring(3);					//Removing first 3 letters
+		}
+		
 		numbers = numbers.replaceAll("\n", "");			//Replace newline with empty string
-		numbers = numbers.substring(3);					//Removing first 3 letters
-		numbers = numbers.replaceAll(storeDelim, ";");	//Replace every delimeter with ";"
 		
 		return splitNumbers(numbers);
 	}
