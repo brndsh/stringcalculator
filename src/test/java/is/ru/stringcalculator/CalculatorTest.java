@@ -33,19 +33,29 @@ public class CalculatorTest {
     public void testNewLineBetweenNumbers(){
     	assertEquals(6, Calculator.add("1\n2,3"));
     }
-    /*@Test
+    @Test
     public void testDelimeter(){
     	assertEquals(0, Calculator.add(";"));
-    }*/
+    }
 
     @Test
     public void testDifferentDelimeter(){
     	assertEquals(3, Calculator.add("//;\n1;2"));
     }
-/*
+
     @Test
-    public void testOneNegativeNumber(){
-    	assertEquals("Negatives not allowed: ", Calculator.add("-1"), exception.getMessage());
+    (expected = IllegalArgumentException.class)
+    public void testNegativeNumbers()
+    {
+        assertEquals("Negatives not allowed: -1", Calculator.add("-1,2"));
     }
-    */
+
+    @Test
+    (expected = IllegalArgumentException.class)
+    public void testTwoNegativeNumbers(){
+        assertEquals("Negatives not allowed: -4,-5", Calculator.add("2,-4,3,-5"));
+    }
+
+
+
 }

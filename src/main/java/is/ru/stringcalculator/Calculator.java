@@ -7,12 +7,10 @@ public class Calculator {
 			return 0;
 		}
 
-		if(text.contains("-"))
-		{
-			throw new RuntimeException("Negatives not allowed: ");		
+		else if(text.contains("-")){
+			return checkIfNumberIsNegative(splitNumbers(text));
 		}
-		else if(text.contains("//"))
-		{
+		else if(text.contains("//")){
 			return sum(removeBeginning(text));
 		}
 		else if(text.contains(",") || text.contains("\n") || text.contains(";")){
@@ -22,11 +20,32 @@ public class Calculator {
 			return toInt(text);
 	}
 
+	private static int checkIfNumberIsNegative(String[] numbers){
+		String storeAllNegativeNumbers = "";
+		int checkIfNegative = 0;
+
+		for(String number : numbers){
+			if(number.contains ("-"))
+			{
+				checkIfNegative = 1;
+			}
+
+			else if(checkIfNegative == 1 && toInt(number) < 0){
+		    	storeAllNegativeNumbers += number;
+		    	storeAllNegativeNumbers += ", ";
+		    	checkIfNegative = 0;
+			}
+		}
+
+
+		throw new IllegalArgumentException("Negatives not allowed: " + storeAllNegativeNumbers);
+	}
+
 	private static String[] removeBeginning(String numbers){
-		String storeDelim = numbers.substring(2,3);	//Store the delimeter
-		numbers = numbers.replaceAll("\n", "");				//Replace newline with empty string
-		numbers = numbers.substring(3);		//Removing first 3 letters
-		numbers = numbers.replaceAll(storeDelim, ";");		//Replace every delimeter with ";"
+		String storeDelim = numbers.substring(2,3);		//Store the delimeter
+		numbers = numbers.replaceAll("\n", "");			//Replace newline with empty string
+		numbers = numbers.substring(3);					//Removing first 3 letters
+		numbers = numbers.replaceAll(storeDelim, ";");	//Replace every delimeter with ";"
 		
 		return splitNumbers(numbers);
 	}
